@@ -1,0 +1,28 @@
+CS 2200 Project 4
+
+Name: Minhong Cho
+GTID: 903806863
+GT_Email: mcho309@gatech.edu
+Section: A
+
+==============================================
+
+___________________________
+Problem-1 (FCFS Scheduler)
+---------------------------
+For the FIFO scheduler, when you run the simulation with 1, 2, and 4 CPUs, you will observe that the total simulated execution time generally decreases as the number of CPUs increases. However, this relationship is not strictly linear. In an ideal parallel system without any overhead, doubling the number of CPUs might halve the execution time. In reality, the total execution time is influenced by several factors such as inter-process dependencies, I/O delays, and synchronization overhead. Even though parallelism allows multiple processes to execute concurrently, there is still a serial portion of the workload that cannot be parallelized (as described by Amdahl’s Law). Moreover, processes often contend for shared resources like the ready queue or require waiting during I/O operations. These factors contribute to a sub-linear decrease in execution time as CPU count increases.
+
+
+________________________
+Problem-2 (Round-Robin)
+------------------------
+With longer timeslices, a process typically runs for a longer period without preemption, which reduces the overall number of context switches and can decrease the total waiting time since processes have a better chance to finish their CPU bursts uninterrupted. Conversely, with very short timeslices, processes are preempted more frequently, resulting in a higher number of context switches and increased waiting time because the overhead of switching between processes becomes significant. Although shorter timeslices might improve response times slightly, in a real operating system they can reduce overall throughput due to the increased overhead and detrimental effects on cache performance, hence there is a trade-off that must be balanced.
+________________________________
+Problem-3 (Preemptive Priority)
+--------------------------------
+To mitigate starvation, many systems use an aging mechanism. In aging, the effective priority of a process is gradually adjusted over time; that is, the longer a process waits, the more its effective priority improves. By incrementally increasing the priority of low-priority processes, the scheduler ensures that these processes eventually receive CPU time, thus preventing indefinite starvation while maintaining the benefits of priority-based scheduling.
+
+___________________________________________
+Problem-4 (The Priority Inversion Problem)
+-------------------------------------------
+To solve this issue, the os can implement priority inheritance. With priority inheritance, when a high-priority process is waiting for a low-priority process to complete a critical task, the system temporarily boosts the low-priority process’s priority—usually to match that of the high-priority process—so that it can finish its job and release the resource more quickly. After the critical section is completed, the low-priority process’s priority is restored to its original value. This mechanism helps ensure that the dependent high-priority process is not stalled for an excessive amount of time and that system responsiveness is maintained.
